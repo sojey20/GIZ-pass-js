@@ -1,14 +1,13 @@
-let numbers = [
-    5,
-    8,
-    0,
-    1,
-    9,
-    11,
-    15,
-    16
-];
+let fs = require('fs');
 
+let data = fs.readFileSync('data.txt', "utf8");
+
+let numbers = data.split(',');
+
+for(let i = 0 ; i < numbers.length ; i++)
+{
+    numbers[i] = parseInt(numbers[i]);
+}
 console.log("Original numbers list: ", numbers)
 
 for(let i = 0 ; i < numbers.length ; i++)
@@ -18,7 +17,7 @@ for(let i = 0 ; i < numbers.length ; i++)
         if(numbers[i] > numbers[j + 1])
         {
             let temp = numbers[j];
-            numbers[j] = numbers[j + 1]
+            numbers[j] = numbers[j + 1];
             numbers[j + 1] = temp;
         }
     }
@@ -33,12 +32,16 @@ for(let i = 0 ; i < numbers.length ; i++)
         if(numbers[i] < numbers[j + 1])
         {
             let temp = numbers[j];
-            numbers[j] = numbers[j + 1]
+            numbers[j] = numbers[j + 1];
             numbers[j + 1] = temp;
         }
     }
 }
 
 console.log("Numbers list After Desc sorting: ", numbers)
+
+fs.writeFile('output.txt', numbers.toString(), (err) => {   
+    if (err) throw err; 
+});
 
 
